@@ -4,7 +4,7 @@
   "description": "Aplicación Favorities Links, en esta aplicación almacenaremos nuestros páginas favoritas, para tenerlas guardadas en una base de datos, la cual sera MySql.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/"
   },
   "repository": {
     "type": "git",
