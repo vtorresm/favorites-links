@@ -18,7 +18,7 @@ Aplicación Favorities Links, en esta aplicación almacenaremos nuestros página
 - connect-flash
 - express-validator
 
-> ``` npm i express express-handlebars express-session mysql express-mysql-session morgan bcryptjs passport passport-local timeago.js connect-flash express-validator ```
+> ``` _npm i express express-handlebars express-session mysql express-mysql-session morgan bcryptjs passport passport-local timeago.js connect-flash express-validator_ ```
 
 ---
 
@@ -26,4 +26,4 @@ Aplicación Favorities Links, en esta aplicación almacenaremos nuestros página
 
 - nodemon 
 
-> ``` npm i nodemon -D ```
+> ``` _npm i nodemon -D_ ```
