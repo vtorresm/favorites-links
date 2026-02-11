@@ -1,0 +1,36 @@
+<div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Favorites Links</h1>
+        <p class="col-md-8 fs-4">
+            Tu aplicación para guardar y organizar tus páginas favoritas.
+            Guarda, categoriza y accede rápidamente a tus enlaces más importantes.
+        </p>
+        {{#if user}}
+            <a href="/links" class="btn btn-primary btn-lg" type="button">Ver Mis Links</a>
+        {{else}}
+            <a href="/auth/register" class="btn btn-primary btn-lg" type="button">Registrarse Gratis</a>
+            <a href="/auth/login" class="btn btn-outline-primary btn-lg" type="button">Iniciar Sesión</a>
+        {{/if}}
+    </div>
+</div>
+
+<div class="row align-items-md-stretch">
+    <div class="col-md-6">
+        <div class="h-100 p-5 text-white bg-dark rounded-3">
+            <h2>Organiza tus Links</h2>
+            <p>
+                Mantén todos tus enlaces favoritos organizados en un solo lugar.
+                Con nuestra aplicación, nunca más perderás ese sitio que tanto te gusta.
+            </p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="h-100 p-5 bg-light border rounded-3">
+            <h2>Acceso Rápido</h2>
+            <p>
+                Accede a tus links desde cualquier dispositivo.
+                Tu colección de favoritos siempre estará sincronizada y disponible.
+            </p>
+        </div>
+    </div>
+</div>

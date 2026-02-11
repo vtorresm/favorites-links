@@ -4,18 +4,23 @@
  * @description Punto de entrada de la aplicación Express con configuraciones de seguridad
  */
 
-const express = require('express');
-const morgan = require('morgan');
-const bodyParser = require('body-parser');
-const { engine } = require('express-handlebars');
-const path = require('path');
-const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
-const session = require('express-session');
-const MySQLStore = require('express-mysql-session');
+import express from 'express';
+import morgan from 'morgan';
+import bodyParser from 'body-parser';
+import { engine } from 'express-handlebars';
+import path from 'path';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
+import session from 'express-session';
+import MySQLStore from 'express-mysql-session';
+import { fileURLToPath } from 'url';
 
 // Configuración
-const { server, session: sessionConfig } = require('./keys');
+import config from './keys.js';
+
+// Directory setup for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Initializations
 const app = express();
@@ -35,14 +40,14 @@ const limiter = rateLimit({
 });
 
 // Settings
-app.set('port', server.port);
+app.set('port', config.server.port);
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', engine({
     defaultLayout: 'main',
     layoutDir: path.join(app.get('views'), 'layouts'),
     partialsDir: path.join(app.get('views'), 'partials'),
     extname: '.hbs',
-    helpers: require('./lib/handlebars')
+    helpers: import('./lib/handlebars.js')
 }));
 app.set('view engine', '.hbs');
 
@@ -51,7 +56,7 @@ app.use(helmet()); // Headers seguros
 app.use(limiter); // Rate limiting
 
 // Development logging
-if (server.env === 'development') {
+if (config.server.env === 'development') {
     app.use(morgan('dev'));
 }
 
@@ -65,27 +70,26 @@ const sessionStore = new MySQLStore({
     user: process.env.DB_USER || 'root',
     password: process.env.DB_PASSWORD || '',
     database: process.env.DB_NAME || 'db_links'
-}, require('./database'));
+}, (await import('./database.js')).default);
 
 app.use(session({
-    secret: sessionConfig.secret,
+    secret: config.session.secret,
     resave: false,
     store: sessionStore,
     saveUninitialized: false,
-    saveUninitialized: false,
     cookie: {
-        secure: server.env === 'production', // Solo HTTPS en producción
+        secure: config.server.env === 'production', // Solo HTTPS en producción
         httpOnly: true, // Previene XSS
         maxAge: 24 * 60 * 60 * 1000 // 24 horas
     }
 }));
 
 // Flash messages
-const flash = require('connect-flash');
+import flash from 'connect-flash';
 app.use(flash());
 
 // Passport Initialization
-const passport = require('passport');
+import passport from 'passport';
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -99,9 +103,9 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use(require('./routes'));
-app.use(require('./routes/authentication'));
-app.use('/links', require('./routes/links'));
+app.use((await import('./routes/index.js')).default);
+app.use((await import('./routes/authentication.js')).default);
+app.use('/links', (await import('./routes/links.js')).default);
 
 // 404 Handler
 app.use((req, res) => {
@@ -115,7 +119,7 @@ app.use((req, res) => {
 app.use((err, req, res, next) => {
     console.error('Error:', err.stack);
 
-    if (server.env === 'development') {
+    if (config.server.env === 'development') {
         res.status(500).json({
             error: true,
             message: err.message,
@@ -125,14 +129,14 @@ app.use((err, req, res, next) => {
         res.status(500).render('500', {
             title: 'Error del servidor',
             layout: 'main',
-            error: server.env === 'production' ? 'Ocurrió un error interno' : err.message
+            error: config.server.env === 'production' ? 'Ocurrió un error interno' : err.message
         });
     }
 });
 
 // Starting the server
 app.listen(app.get('port'), () => {
-    console.log(`Server running on port ${app.get('port')} in ${server.env} mode`);
+    console.log(`Server running on port ${app.get('port')} in ${config.server.env} mode`);
 });
 
-module.exports = app;
+export default app;

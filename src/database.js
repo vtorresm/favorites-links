@@ -4,14 +4,14 @@
  * @description Manejo de pool de conexiones con promisify y manejo de errores
  */
 
-const mysql = require('mysql');
-const { promisify } = require('util');
-const { database } = require('./keys');
+import mysql from 'mysql';
+import { promisify } from 'util';
+import config from './keys.js';
 
 /**
  * Crear pool de conexiones
  */
-const pool = mysql.createPool(database);
+const pool = mysql.createPool(config.database);
 
 /**
  * Manejo de errores de conexión
@@ -56,8 +56,8 @@ pool.query = promisify(pool.query);
  * @param {Array} params - Query parameters
  * @returns {Promise<Array>} Query results
  */
-pool.execute = async (sql, params) => {
+export const execute = async (sql, params) => {
     return await pool.query(sql, params);
 };
 
-module.exports = pool;
+export default pool;

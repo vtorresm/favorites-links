@@ -4,11 +4,11 @@
  * @description Manejo de operaciones CRUD para favoritos/links
  */
 
-const express = require('express');
-const { body, validationResult } = require('express-validator');
-const router = express.Router();
+import { Router } from 'express';
+import { body, validationResult } from 'express-validator';
+import pool from '../database.js';
 
-const pool = require('../database');
+const router = Router();
 
 /**
  * Validaciones para crear/editar un link
@@ -165,4 +165,4 @@ router.post('/edit/:id', linkValidationRules, validate, async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

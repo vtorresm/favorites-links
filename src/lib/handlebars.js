@@ -1,10 +1,20 @@
-const {format} = require('timeago.js');
+/**
+ * Handlebars Helpers
+ * @module lib/handlebars
+ * @description Funciones helper para las plantillas Handlebars
+ */
 
-const helper = {};
+import { format } from 'timeago.js';
 
-helper.timeago = (timestamp) => {
-    console.log(timestamp);
+/**
+ * Helper para formatear timestamps a tiempo relativo
+ * @param {Date|string} timestamp - Fecha a formatear
+ * @returns {string} Tiempo relativo formateado
+ */
+export const timeago = (timestamp) => {
     return format(timestamp);
 };
 
-module.exports = helper;
+export default {
+    timeago
+};

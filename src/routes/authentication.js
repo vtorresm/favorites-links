@@ -4,15 +4,15 @@
  * @description Manejo de registro, login y logout con Passport.js
  */
 
-const express = require('express');
-const { body, validationResult } = require('express-validator');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const bcrypt = require('bcryptjs');
-const router = express.Router();
+import { Router } from 'express';
+import { body, validationResult } from 'express-validator';
+import passport from 'passport';
+import { Strategy as LocalStrategy } from 'passport-local';
+import bcrypt from 'bcryptjs';
+import pool from '../database.js';
+import config from '../keys.js';
 
-const pool = require('../database');
-const { jwt } = require('../keys');
+const router = Router();
 
 /**
  * Validaciones para registro de usuario
@@ -197,4 +197,4 @@ router.get('/logout', (req, res, next) => {
     });
 });
 
-module.exports = router;
+export default router;

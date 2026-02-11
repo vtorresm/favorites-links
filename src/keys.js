@@ -4,13 +4,13 @@
  */
 
 // Cargar variables de entorno
-require('dotenv').config();
+import 'dotenv/config';
 
 /**
  * Configuración de base de datos y servidor
  * Lee valores de process.env con valores por defecto para desarrollo
  */
-module.exports = {
+const config = {
     database: {
         host: process.env.DB_HOST || 'localhost',
         user: process.env.DB_USER || 'root',
@@ -28,3 +28,5 @@ module.exports = {
         secret: process.env.JWT_SECRET || 'jwt_secret_change_in_production'
     }
 };
+
+export default config;
