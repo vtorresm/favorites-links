@@ -1,21 +1,51 @@
-<div class="container p-4">
-    <div class="row">
+<div class="row mb-4">
+    <div class="col">
+        <h2 class="d-inline-block">Mis Links</h2>
+        <a href="/links/add" class="btn btn-primary float-end">Agregar Nuevo Link</a>
+    </div>
+</div>
+
+{{#if links.length}}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         {{#each links}}
-            <div class="col-md-3">
-                <div class="card text-center">
+            <div class="col">
+                <div class="card h-100">
                     <div class="card-body">
-                        <a href="{{url}}" target="_blank">
-                            <h3 class="card-title text-uppercase">
+                        <h5 class="card-title">
+                            <a href="{{url}}" target="_blank" rel="noopener noreferrer">
                                 {{title}}
-                            </h3>
-                        </a>
-                        <p class="m-2">{{description}}</p>
-                        <p>{{timeago created_at}}</p>
-                        <a href="" class="btn btn-danger">Delete</a>
-                        <a href="" class="btn btn-secondary">Edit</a>
+                                <i class="fas fa-external-link-alt ms-1" style="font-size: 0.8em;"></i>
+                            </a>
+                        </h5>
+                        {{#if description}}
+                            <p class="card-text">{{description}}</p>
+                        {{/if}}
+                        <p class="card-text">
+                            <small class="text-muted">Agregado {{timeago created_at}}</small>
+                        </p>
+                    </div>
+                    <div class="card-footer bg-transparent border-top-0">
+                        <div class="btn-group w-100" role="group">
+                            <a href="/links/edit/{{id}}" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-edit"></i> Editar
+                            </a>
+                            <a href="/links/delete/{{id}}"
+                               class="btn btn-outline-danger btn-sm"
+                               data-delete-confirm
+                               onclick="return confirm('¿Estás seguro de eliminar este link?');">
+                                <i class="fas fa-trash"></i> Eliminar
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         {{/each}}
     </div>
-</div>
+{{else}}
+    <div class="text-center py-5">
+        <i class="fas fa-link fa-4x text-muted mb-3"></i>
+        <h4 class="text-muted">No tienes links guardados</h4>
+        <p class="text-muted">¡Agrega tu primer link favorito!</p>
+        <a href="/links/add" class="btn btn-primary">Agregar Link</a>
+    </div>
+{{/if}}

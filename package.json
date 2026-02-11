@@ -1,16 +1,24 @@
 {
   "name": "favorites-links",
   "version": "1.0.0",
-  "description": "Aplicación Favorities Links, en esta aplicación almacenaremos nuestros páginas favoritas, para tenerlas guardadas en una base de datos, la cual sera MySql.",
-  "main": "index.js",
+  "description": "Aplicación Favorites Links - Almacena tus páginas favoritas en una base de datos MySQL con autenticación segura.",
+  "main": "src/index.js",
   "scripts": {
-    "dev": "nodemon src/"
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vtorresm/favorites-links.git"
   },
-  "keywords": [],
+  "keywords": [
+    "favorites",
+    "links",
+    "bookmarks",
+    "express",
+    "mysql"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -21,11 +29,14 @@
     "bcryptjs": "^3.0.3",
     "body-parser": "^2.2.2",
     "connect-flash": "^0.1.1",
+    "dotenv": "^16.3.1",
     "express": "^5.2.1",
     "express-handlebars": "^8.0.6",
     "express-mysql-session": "^3.0.3",
+    "express-rate-limit": "^7.1.5",
     "express-session": "^1.19.0",
     "express-validator": "^7.3.1",
+    "helmet": "^7.1.0",
     "morgan": "^1.10.1",
     "mysql": "^2.18.1",
     "passport": "^0.7.0",
@@ -33,6 +44,7 @@
     "timeago.js": "^4.0.2"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "nodemon": "^3.1.11"
   }
 }

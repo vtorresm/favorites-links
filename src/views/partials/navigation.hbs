@@ -1,22 +1,51 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-      </li>
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" href="/">Favorites Links</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        {{#if user}}
+          <!-- Usuario autenticado -->
+          <li class="nav-item">
+            <a class="nav-link" href="/links">Mis Links</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/links/add">Agregar Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/auth/logout">Cerrar Sesión ({{user.username}})</a>
+          </li>
+        {{else}}
+          <!-- Usuario no autenticado -->
+          <li class="nav-item">
+            <a class="nav-link" href="/auth/login">Iniciar Sesión</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/auth/register">Registrarse</a>
+          </li>
+        {{/if}}
+      </ul>
+    </div>
   </div>
 </nav>
+
+<!-- Flash Messages -->
+{{#if success_msg}}
+  <div class="container mt-3">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{success_msg}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
+{{/if}}
+
+{{#if error_msg}}
+  <div class="container mt-3">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{error_msg}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
+{{/if}}

@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6 text-center">
+            <h1 class="display-1">500</h1>
+            <h2 class="mb-4">Error del Servidor</h2>
+            <p class="lead">Lo sentimos, ocurrió un error interno del servidor.</p>
+            {{#if error}}
+                <div class="alert alert-warning">{{error}}</div>
+            {{/if}}
+            <a href="/" class="btn btn-primary">Volver al Inicio</a>
+        </div>
+    </div>
+</div>

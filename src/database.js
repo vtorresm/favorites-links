@@ -1,29 +1,63 @@
+/**
+ * Conexión a Base de Datos MySQL
+ * @module database
+ * @description Manejo de pool de conexiones con promisify y manejo de errores
+ */
+
 const mysql = require('mysql');
 const { promisify } = require('util');
-
 const { database } = require('./keys');
 
+/**
+ * Crear pool de conexiones
+ */
 const pool = mysql.createPool(database);
 
+/**
+ * Manejo de errores de conexión
+ */
 pool.getConnection((err, connection) => {
     if (err) {
-        if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-            console.error('DATABASE CONNECTION WAS CLOSED');
+        let errorMessage = 'Error de conexión a la base de datos';
+
+        switch (err.code) {
+            case 'PROTOCOL_CONNECTION_LOST':
+                errorMessage = 'La conexión con la base de datos se cerró';
+                break;
+            case 'ER_CON_COUNT_ERROR':
+                errorMessage = 'Demasiadas conexiones abiertas';
+                break;
+            case 'ECONNREFUSED':
+                errorMessage = 'Conexión rechazada. Verifica las credenciales';
+                break;
+            case 'ENOTFOUND':
+                errorMessage = 'Host no encontrado. Verifica la configuración';
+                break;
+            default:
+                errorMessage = err.message;
         }
-        if (err.code === 'ER_CON_COUNT_ERROR') {
-            console.error('DATABASE HAS TO MANY CONNECTIONS');
-        }
-        if (err.code === 'ECONNREFUSED') {
-            console.error('DATABASE CONNECTION WAS REFUSED');
-        }
+
+        console.error('❌ Database Error:', errorMessage);
+        console.error('Code:', err.code);
     }
 
-    if (connection) connection.release();
-    console.log('DB is Connected');
-    return;
+    if (connection) {
+        connection.release();
+        console.log('✅ Database connected successfully');
+    }
 });
 
-// Promisify Pool Querys
+// Promisify pool query methods for async/await usage
 pool.query = promisify(pool.query);
+
+/**
+ * Execute a query with parameters (prevents SQL injection)
+ * @param {string} sql - SQL query
+ * @param {Array} params - Query parameters
+ * @returns {Promise<Array>} Query results
+ */
+pool.execute = async (sql, params) => {
+    return await pool.query(sql, params);
+};
 
 module.exports = pool;
