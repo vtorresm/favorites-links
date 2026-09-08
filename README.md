@@ -22,13 +22,22 @@
 Este proyecto fue reestructurado bajo principios estrictos de ingeniería de software para prevenir la obsolescencia y deuda técnica:
 
 ### 1. Clean Code & Principios SOLID
+<<<<<<< HEAD
 - **Single Responsibility (SRP):** Cada módulo tiene un propósito único: esquemas Zod en `src/lib/validations/`, Server Actions en `actions.ts`, entidades en `src/types/` y componentes visuales en `src/components/`.
 - **Open/Closed (OCP):** Componentes como `LinkForm` y `LinkCard` diseñados para ser extensibles mediante props tipadas sin modificar la lógica interna.
+=======
+- **Single Responsibility (SRP):** Cada módulo tiene un propósito único: esquemas Zod en `src/lib/validations/`, Server Actions en `actions.ts`, tipos en `src/types/`, y componentes modulares en `src/components/`.
+- **Open/Closed (OCP):** Componentes como `LinkForm` y `LinkCard` extensibles mediante props tipadas sin modificar la lógica nuclear.
+>>>>>>> 2576e6e87ea0f3176301cb959703f794236f2438
 - **Interface Segregation (ISP):** Tipos segregados para creación (`CreateLinkInput`), lectura (`Link`) y retornos tipados (`ActionState<T>`).
 - **Dependency Inversion (DIP):** Los componentes y acciones dependen de abstracciones y fábricas de clientes Supabase (`createServerClient`, `createBrowserClient`).
 
 ### 2. Seguridad OWASP Top 10
+<<<<<<< HEAD
 - **A01: Broken Access Control:** Resuelto mediante **Row Level Security (RLS)** en PostgreSQL (`supabase/schema.sql`). La base de datos garantiza que ningún usuario pueda leer, modificar o eliminar enlaces de otros usuarios (`auth.uid() = user_id`). Proxy / Middleware de Next.js protege todas las rutas del dashboard (`/links/*`).
+=======
+- **A01: Broken Access Control:** Resuelto mediante **Row Level Security (RLS)** en PostgreSQL (`supabase/schema.sql`). La base de datos garantiza que ningún usuario pueda leer, modificar o eliminar enlaces de otros usuarios (`auth.uid() = user_id`). Middleware de Next.js protege todas las rutas del dashboard (`/links/*`).
+>>>>>>> 2576e6e87ea0f3176301cb959703f794236f2438
 - **A02: Cryptographic Failures:** Sesiones gestionadas con tokens JWT y cookies cifradas `httpOnly`, `secure` y `sameSite: lax` a través de `@supabase/ssr`.
 - **A03: Injection & Anti-XSS:**
   - Consultas 100% parametrizadas en Supabase (eliminación total de Inyección SQL).
@@ -58,6 +67,7 @@ favorites-links/
 ├── supabase/
 │   └── schema.sql              # DDL de PostgreSQL, RLS e índices
 └── src/
+    ├── middleware.ts           # Middleware de sesión y control de acceso
     ├── proxy.ts                # Proxy/Middleware de sesión y control de acceso
     ├── lib/
     │   ├── utils.ts            # Utilidades generales (cn con clsx y tailwind-merge)
