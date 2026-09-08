@@ -1,32 +1,20 @@
 {
   "name": "favorites-links",
-  "version": "1.0.0",
   "version": "2.0.0",
   "private": true,
   "type": "module",
-  "description": "Aplicación Favorites Links - Almacena tus páginas favoritas en una base de datos MySQL con autenticación segura.",
-  "main": "src/index.js",
   "description": "Favorites Links - Administrador moderno de enlaces y páginas favoritas con Next.js 16, Tailwind CSS v4 y Supabase.",
   "packageManager": "pnpm@12.3.4",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vtorresm/favorites-links.git"
-  },
   "keywords": [
     "favorites",
     "links",
     "bookmarks",
-    "express",
-    "mysql"
     "nextjs",
     "supabase",
     "tailwindcss",
@@ -34,27 +22,7 @@
   ],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/vtorresm/favorites-links/issues"
-  },
-  "homepage": "https://github.com/vtorresm/favorites-links#readme",
   "dependencies": {
-    "bcryptjs": "^3.0.3",
-    "body-parser": "^2.2.2",
-    "connect-flash": "^0.1.1",
-    "dotenv": "^16.3.1",
-    "express": "^5.2.1",
-    "express-handlebars": "^8.0.6",
-    "express-mysql-session": "^3.0.3",
-    "express-rate-limit": "^7.1.5",
-    "express-session": "^1.19.0",
-    "express-validator": "^7.3.1",
-    "helmet": "^7.1.0",
-    "morgan": "^1.10.1",
-    "mysql": "^2.18.1",
-    "passport": "^0.7.0",
-    "passport-local": "^1.0.0",
-    "timeago.js": "^4.0.2"
     "@supabase/ssr": "^0.12.6",
     "@supabase/supabase-js": "^2.116.0",
     "clsx": "^2.1.1",
@@ -66,8 +34,6 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "jest": "^29.7.0",
-    "nodemon": "^3.1.11"
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^20.17.19",
     "@types/react": "^19.0.10",

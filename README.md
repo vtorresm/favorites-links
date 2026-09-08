@@ -1,39 +1,20 @@
-# Favorites Links
-Aplicación Favorities Links, en esta aplicación almacenaremos nuestros páginas favoritas, para tenerlas guardadas en una base de datos, la cual sera MySql.
 # Favorites Links (v2.0)
 
-> Administrador moderno de enlaces y páginas favoritas construido con **Next.js 16**, **React 19**, **Tailwind CSS v4** y **Supabase** (PostgreSQL, Auth & Row Level Security).
 > Administrador moderno de enlaces y páginas favoritas construido con **Next.js 16**, **React 19**, **Tailwind CSS v4** y **Supabase** (PostgreSQL, Supabase Auth y Row Level Security).
 
 ---
 
-### Paquetes Instalados(Dependencias)
 ## 🚀 Pila Tecnológica (Tech Stack)
 
-- express
-- express-handlebars
-- express-session
-- mysql
-- express-mysql-session
-- morgan
-- bcryptjs
-- passport
-- passport-local
-- timeago.js
-- connect-flash
-- express-validator
-- **Framework Fullstack:** [Next.js 16](https://nextjs.org/) (App Router, Server Components y Server Actions).
 - **Framework Fullstack:** [Next.js 16](https://nextjs.org/) (App Router, Server Components y Server Actions con Turbopack).
 - **Librería UI:** [React 19](https://react.dev/).
 - **Lenguaje:** [TypeScript 5](https://www.typescriptlang.org/) (modo estricto).
 - **Estilos:** [Tailwind CSS v4](https://tailwindcss.com/) con `@tailwindcss/postcss`.
-- **Base de Datos & Autenticación:** [Supabase](https://supabase.com/) (PostgreSQL + Supabase Auth con `@supabase/ssr`).
 - **Base de Datos & Autenticación:** [Supabase](https://supabase.com/) (PostgreSQL + Supabase Auth con sesiones seguras vía `@supabase/ssr`).
 - **Validación de Datos:** [Zod](https://zod.dev/) para validación estricta en runtime y prevención de inyecciones.
 - **Iconografía:** [Lucide React](https://lucide.dev/).
 - **Gestor de Paquetes Exclusivo:** **`pnpm`** (v12.3.4).
 
-> ``` npm i express express-handlebars express-session mysql express-mysql-session morgan bcryptjs passport passport-local timeago.js connect-flash express-validator ```
 ---
 
 ## 🛡️ Estándares de Arquitectura, SOLID y Seguridad OWASP
@@ -41,16 +22,12 @@ Aplicación Favorities Links, en esta aplicación almacenaremos nuestros página
 Este proyecto fue reestructurado bajo principios estrictos de ingeniería de software para prevenir la obsolescencia y deuda técnica:
 
 ### 1. Clean Code & Principios SOLID
-- **Single Responsibility (SRP):** Cada módulo tiene un propósito único: esquemas Zod en `src/lib/validations/`, Server Actions en `actions.ts`, tipos en `src/types/`, y componentes modulares en `src/components/`.
-- **Open/Closed (OCP):** Componentes como `LinkForm` y `LinkCard` extensibles mediante props tipadas sin modificar la lógica nuclear.
 - **Single Responsibility (SRP):** Cada módulo tiene un propósito único: esquemas Zod en `src/lib/validations/`, Server Actions en `actions.ts`, entidades en `src/types/` y componentes visuales en `src/components/`.
 - **Open/Closed (OCP):** Componentes como `LinkForm` y `LinkCard` diseñados para ser extensibles mediante props tipadas sin modificar la lógica interna.
 - **Interface Segregation (ISP):** Tipos segregados para creación (`CreateLinkInput`), lectura (`Link`) y retornos tipados (`ActionState<T>`).
 - **Dependency Inversion (DIP):** Los componentes y acciones dependen de abstracciones y fábricas de clientes Supabase (`createServerClient`, `createBrowserClient`).
 
 ### 2. Seguridad OWASP Top 10
-- **A01: Broken Access Control:** Resuelto mediante **Row Level Security (RLS)** en PostgreSQL (`supabase/schema.sql`). La base de datos garantiza que ningún usuario pueda leer, modificar o eliminar enlaces de otros usuarios (`auth.uid() = user_id`). Middleware de Next.js protege todas las rutas del dashboard (`/links/*`).
-- **A01: Broken Access Control:** Resuelto mediante **Row Level Security (RLS)** en PostgreSQL (`supabase/schema.sql`). La base de datos garantiza que ningún usuario pueda leer, modificar o eliminar enlaces de otros usuarios (`auth.uid() = user_id`). Middleware / Proxy de Next.js protege todas las rutas del dashboard (`/links/*`).
 - **A01: Broken Access Control:** Resuelto mediante **Row Level Security (RLS)** en PostgreSQL (`supabase/schema.sql`). La base de datos garantiza que ningún usuario pueda leer, modificar o eliminar enlaces de otros usuarios (`auth.uid() = user_id`). Proxy / Middleware de Next.js protege todas las rutas del dashboard (`/links/*`).
 - **A02: Cryptographic Failures:** Sesiones gestionadas con tokens JWT y cookies cifradas `httpOnly`, `secure` y `sameSite: lax` a través de `@supabase/ssr`.
 - **A03: Injection & Anti-XSS:**
@@ -65,10 +42,8 @@ Este proyecto fue reestructurado bajo principios estrictos de ingeniería de sof
 
 ---
 
-### Paquetes Instalados(Dependencias desarrollo)
 ## 📁 Estructura del Proyecto
 
-- nodemon 
 ```
 favorites-links/
 ├── .env.example                # Plantilla de variables de entorno de Supabase
@@ -83,7 +58,6 @@ favorites-links/
 ├── supabase/
 │   └── schema.sql              # DDL de PostgreSQL, RLS e índices
 └── src/
-    ├── middleware.ts           # Middleware de sesión y control de acceso
     ├── proxy.ts                # Proxy/Middleware de sesión y control de acceso
     ├── lib/
     │   ├── utils.ts            # Utilidades generales (cn con clsx y tailwind-merge)
@@ -107,7 +81,6 @@ favorites-links/
         └── (dashboard)/        # Rutas protegidas de gestión de enlaces
 ```
 
-> ``` npm i nodemon -D ```
 ---
 
 ## ⚙️ Requisitos Previos
