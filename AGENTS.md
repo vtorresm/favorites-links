@@ -1,3 +1,4 @@
+# AGEND.md - Bitácora de Arquitectura, Instrucciones y Buenas Prácticas
 # AGENTS.md - Bitácora de Arquitectura, Instrucciones y Buenas Prácticas
 
 > **Propósito:** Este documento preserva las directrices técnicas, decisiones de arquitectura, normas de seguridad y la bitácora de desarrollo del proyecto **Favorites Links** para asegurar la máxima mantenibilidad y evitar la obsolescencia técnica en futuras iteraciones.
@@ -88,6 +89,7 @@ Al incorporar una nueva característica al proyecto, sigue esta secuencia:
 - [x] Componentes de interfaz (Navbar, LinkCard, LinkForm, DeleteLinkModal, LinksClientList, EmptyState).
 - [x] Páginas públicas con SEO (Landing) y privadas (Dashboard, Nuevo Enlace, Editar Enlace).
 - [x] Configuración de seguridad OWASP en `next.config.ts`.
+- [x] Documentación completa en `README.md` y `AGEND.md`.
 - [x] Documentación completa en `README.md` y `AGENTS.md`.
 - [ ] Ejecución de `pnpm install` y verificación de `pnpm build`.
 
